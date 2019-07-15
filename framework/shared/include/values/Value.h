@@ -95,8 +95,8 @@ namespace slambench {
 		// Templates for converting between VTs and classes
 		// weird sizeof checks are to force the checks only to happen when the
 		// template is instantiated, rather than where it is declared
-		template <ValueType T> struct TypeForVT { static_assert(sizeof(T) == -1, "Unknown VT type"); typedef void* type; };
-		template<typename T> struct VTForType { static_assert(sizeof(T) == -1, "No VT for that type"); static constexpr ValueType value() { return VT_UNKNOWN; } };
+		template <ValueType T> struct TypeForVT { typedef void* type; };
+		template<typename T> struct VTForType { static constexpr ValueType value() { return VT_UNKNOWN; } };
 		
 		template<typename T> class TypedValue : public Value {
 		public:

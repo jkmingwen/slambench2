@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=unused-parameter -Wno-error=u
 
 
 find_package(Boost 1.54 REQUIRED COMPONENTS system filesystem program_options regex)
-find_package(LIBYAML REQUIRED)
+# find_package(LIBYAML REQUIRED)
 
 add_executable(io-readply io-readply.cpp)
 target_link_libraries(io-readply slambench-io)
@@ -43,7 +43,7 @@ if (Boost_FOUND)
 	target_include_directories(ICLNUIM PRIVATE ${Boost_INCLUDE_DIRS})
     
 	add_executable(dataset-generator dataset-generator.cpp)
-	target_link_libraries(dataset-generator TUM ICLNUIM ICL EUROCMAV SVO)
+	target_link_libraries(dataset-generator TUM ICLNUIM ICL SVO)
 		
 	
 else (Boost_FOUND)

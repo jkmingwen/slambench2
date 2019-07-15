@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 2.8)
  set(common_properties "")
  set(common_libraries "")
  
-
  include_directories(./include)
+ include_directories(${EIGEN3_INCLUDE_DIR})
 
 ########## Boost (required) ####################
  
@@ -169,6 +169,8 @@ target_link_libraries(slambench-io PRIVATE slambench-utils pthread  ${Boost_LIBR
 SET(EXTRA_LIBS_FOR_MEMORY "")
 
 find_package(OpenCL)
+
+if (UNIX AND NOT APPLE)
 if (OPENCL_FOUND) 
     	SET(EXTRA_LIBS_FOR_MEMORY "${EXTRA_LIBS_FOR_MEMORY};${OPENCL_LIBRARIES}")
 ENDIF(OPENCL_FOUND)
@@ -181,7 +183,7 @@ if (CUDA_FOUND)
 ENDIF(CUDA_FOUND)
 
   target_link_libraries(slambench-utils  "-Wl,--no-as-needed;${EXTRA_LIBS_FOR_MEMORY};-Wl,--as-needed")
-
+endif()
 
 
 if(OpenNI_FOUND)

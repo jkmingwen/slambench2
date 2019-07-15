@@ -11,6 +11,7 @@
 #ifndef SB_MALLOC_H_
 #define SB_MALLOC_H_
 
+
 #include <map>
 
 #include <cstdio>
@@ -27,17 +28,7 @@
 #endif
 
 
-#ifdef ANDROID
-extern "C" {
-void *malloc(size_t size) ;
-void free(void* ptr) ;
-}
-#else
-extern "C" {
-void *malloc(size_t size) throw();
-void free(void* ptr) throw();
-}
-#endif
+
 
 namespace slambench {
 	namespace memory {
@@ -119,5 +110,4 @@ namespace slambench {
 		};
 	}
 }
-
 #endif
