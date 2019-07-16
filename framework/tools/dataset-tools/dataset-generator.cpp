@@ -33,7 +33,7 @@
 #include <unistd.h>
 
 
-#include "./include/EUROCMAV.h"
+//#include "./include/EUROCMAV.h"
 #include "./include/ICL.h"
 #include "./include/ICLNUIM.h"
 #include "./include/TUM.h"
@@ -88,8 +88,8 @@ public :
 			config->reader = new ICLNUIMReader("");
 		} else if (dataset_name == "tum") {
 			config->reader = new TUMReader("");
-		} else if (dataset_name == "eurocmav") {
-			config->reader = new EUROCMAVReader("");
+                        //	} else if (dataset_name == "eurocmav") {
+                        //	config->reader = new EUROCMAVReader("");
 		} else if (dataset_name == "icl") {
 			config->reader = new ICLReader("");
 		} else if (dataset_name == "svo") {
