@@ -13,7 +13,7 @@
 
 
 #include "sys/types.h"
-#include "sys/sysinfo.h"
+// #include "sys/sysinfo.h"
 
 inline int parseLine(char* line){
       int i = strlen(line);
