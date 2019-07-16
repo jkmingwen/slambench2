@@ -1,0 +1,50 @@
+* Installing SLAMBench on Mac
+- Edit flags (-p, -rf) in Makefiles to be before strings
+  - framework/makefiles/download_benchmarks.py
+  - framework/makefiles/eigen3.make
+- Install prerequisites if you haven't already done so (I used Homebrew)
+  - CMake
+    - brew install cmake
+  - Make
+    - brew install make
+  - GCC C/C++
+    - brew install gcc
+  - Boost
+    - brew install boost
+  - GLUT (left out for now)
+  - wget
+    - brew install wget
+  - yaml
+    - brew install libyaml (do I still need this?)
+    - brew install yaml-cpp
+  - Install Mercurial to make eigen3
+    - brew install hg
+- make eigen3
+- Comment out "#define ENABLE_MEM_PROFILING" in framework/shared/src/sb_malloc.cpp
+** Speeding up compilation
+- make -j4 to use 4 processors
+- ccache to cache files that have already been compiled
+
+* Bug fix
+** DONE Git commits (from 15-07-2019)
+- Makefile change can be discarded
+- Separate flag rearrangements from rest of changes
+- Commit changes and submit pull request
+** DONE TUMReader bug
+- TUMReader class
+  - For definition of TUMReader
+- TUM.cpp
+  - GenerateSLAMFile() function
+    - Tries to access fr1_intrinsics, fr2... but they are of type constexpr
+      - LLVM ignores the constexpr variables and so need to maybe shift it to GenerateSLAMFile() in TUM.cpp
+- Same bug in ICLReader
+- Fixed by moving "static constexpr" variables to be within respective GenerateSLAMFile() function definitions
+** DONE whole-archive
+- Doesn't work with clang
+  - Replaced with working equivalents for clang (-noall_load)
+** DONE Pangolin bug
+- Refactored shell script flags in makefile
+- Workaround to avoid use of sysinfo functions for now
+
+*** Testing fix
+- Evaluating a benchmark (from repo README.md)
