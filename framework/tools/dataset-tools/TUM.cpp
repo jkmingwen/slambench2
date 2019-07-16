@@ -402,6 +402,32 @@ bool loadTUMAccelerometerData(const std::string &dirname , SLAMFile &file) {
 
 
 SLAMFile* TUMReader::GenerateSLAMFile () {
+  // from TUMReader class definition in TUM.h
+  	// I took those numbers from the TUM dataset paper
+	static constexpr CameraSensor::intrinsics_t fr1_intrinsics_rgb   = { 0.80828125, 1.076041667, 0.4978125, 0.531875 };
+	static constexpr DepthSensor::intrinsics_t  fr1_intrinsics_depth = { 0.92359375, 1.229375,    0.5171875, 0.4875   };
+	static constexpr CameraSensor::intrinsics_t fr2_intrinsics_rgb   = { 0.81390624, 1.085416667, 0.5079687, 0.52020  };
+	static constexpr DepthSensor::intrinsics_t  fr2_intrinsics_depth = { 0.9075,     1.212083333, 0.4825,    0.52708  };
+
+
+	// I took those numbers from ORBSLAM2 examples
+
+	static constexpr float fr1_fps =  30.0 ;
+	static constexpr float fr1_bf =  40.0 ;
+	static constexpr float fr1_ThDepth =  40.0 ;
+	static constexpr float fr1_DepthMapFactor =  5000.0 ;
+
+	static constexpr float fr2_fps =  30.0 ;
+	static constexpr float fr2_bf =  40.0 ;
+	static constexpr float fr2_ThDepth =  40.0 ;
+	static constexpr float fr2_DepthMapFactor =  5208.0 ;
+
+
+	static constexpr CameraSensor::distortion_coefficients_t fr1_distortion_rgb   = { 0.262383 ,	 -0.953104,	 -0.005358,	 0.002628 ,	 1.163314  };
+	static constexpr CameraSensor::distortion_coefficients_t fr2_distortion_rgb   = { 0.231222  ,	 -0.784899 , -0.003257 , -0.000105 , 0.917205    };
+
+	static constexpr DepthSensor::distortion_coefficients_t  fr1_distortion_depth = { 0.262383,	 -0.953104,	 -0.005358,	 0.002628, 	 1.163314   };
+	static constexpr DepthSensor::distortion_coefficients_t  fr2_distortion_depth = {  0.231222  ,	 -0.784899 , -0.003257 , -0.000105 , 0.917205  };
 
 	if(!(grey || rgb || depth)) {
 		std::cerr <<  "No sensors defined\n";

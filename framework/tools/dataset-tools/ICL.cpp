@@ -620,7 +620,10 @@ bool Serialise(const std::string &filename, SLAMFile &file) {
 
 
 SLAMFile* ICLReader::GenerateSLAMFile () {
-
+  //  from ICLReader class definition in ICL.h
+  	static constexpr CameraSensor::intrinsics_t fr1_intrinsics_rgb   = { 0.9375, 1.25, 0.5, 0.5 };
+	static constexpr DepthSensor::intrinsics_t  fr1_intrinsics_depth = { 0.9375, 1.25, 0.5, 0.5 };
+        
 	if(!(grey || rgb || depth)) {
 		std::cerr <<  "No sensors defined\n";
 		return nullptr;
