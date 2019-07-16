@@ -12,8 +12,8 @@ find_package(Boost 1.54 REQUIRED COMPONENTS system filesystem program_options re
 add_executable(io-readply io-readply.cpp)
 target_link_libraries(io-readply slambench-io)
 
-add_executable(io-inspect-file io-inspect.cpp)
-target_link_libraries(io-inspect-file PRIVATE -Wl,--whole-archive slambench-io -Wl,--no-whole-archive)
+##add_executable(io-inspect-file io-inspect.cpp)
+##target_link_libraries(io-inspect-file PRIVATE -Wl,--whole-archive slambench-io -Wl,--no-whole-archive)
 	
 if (Boost_FOUND)
 
