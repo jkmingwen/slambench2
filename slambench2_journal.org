@@ -21,11 +21,7 @@
     - brew install hg
 - make eigen3
 - Comment out "#define ENABLE_MEM_PROFILING" in framework/shared/src/sb_malloc.cpp
-** Speeding up compilation
-- make -j4 to use 4 processors
-- ccache to cache files that have already been compiled
-
-* Bug fix
+* Bugs/Fixes
 ** DONE Git commits (from 15-07-2019)
 - Makefile change can be discarded
 - Separate flag rearrangements from rest of changes
@@ -45,6 +41,9 @@
 ** DONE Pangolin bug
 - Refactored shell script flags in makefile
 - Workaround to avoid use of sysinfo functions for now
-
-*** Testing fix
-- Evaluating a benchmark (from repo README.md)
+** TODO echo bug
+- echo flags don't seem to work for some reason
+* Compiling on OSX w/ bruno-dev (17-07-19)
+** Overview of steps
+- make eigen3
+** Bugs/Fixes
