@@ -21,12 +21,12 @@
     - brew install hg
 - make eigen3
 - Comment out "#define ENABLE_MEM_PROFILING" in framework/shared/src/sb_malloc.cpp
-* Bugs/Fixes
-** DONE Git commits (from 15-07-2019)
+** Bugs/Fixes
+*** DONE Git commits (from 15-07-2019)
 - Makefile change can be discarded
 - Separate flag rearrangements from rest of changes
 - Commit changes and submit pull request
-** DONE TUMReader bug
+*** DONE TUMReader bug
 - TUMReader class
   - For definition of TUMReader
 - TUM.cpp
@@ -35,15 +35,18 @@
       - LLVM ignores the constexpr variables and so need to maybe shift it to GenerateSLAMFile() in TUM.cpp
 - Same bug in ICLReader
 - Fixed by moving "static constexpr" variables to be within respective GenerateSLAMFile() function definitions
-** DONE whole-archive
+*** DONE whole-archive
 - Doesn't work with clang
   - Replaced with working equivalents for clang (-noall_load)
-** DONE Pangolin bug
+*** DONE Pangolin bug
 - Refactored shell script flags in makefile
 - Workaround to avoid use of sysinfo functions for now
-** TODO echo bug
+*** TODO echo bug
 - echo flags don't seem to work for some reason
-* Compiling on OSX w/ bruno-dev (17-07-19)
-** Overview of steps
-- make eigen3
+* Installing SLAMBench on Jetson Xavier
 ** Bugs/Fixes
+- Seems as though boost is necessary to compile SLAMBench with 'make slambench' so might want to consider removing the "(optional)" from Boost in documentation
+  - sudo apt install libboost-dev
+  - sudo apt install libboost-all-dev
+- Revert "--all_load" and "-noall_load" flags to "--whole-archive" and "no-whole-archive"
+  - There were changes to some flags to work with LLVM and these need to be reverted
