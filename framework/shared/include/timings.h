@@ -12,7 +12,9 @@
 #define TIMINGS_H
 
 #ifdef __APPLE__
-#include <sys/time.h>       /* clock_t, clock, CLOCKS_PER_SEC */
+// #include <sys/time.h>       /* clock_t, clock, CLOCKS_PER_SEC */
+#include <mach/clock.h>
+#include <mach/mach.h>
 #else
 #include <chrono>
 #endif
