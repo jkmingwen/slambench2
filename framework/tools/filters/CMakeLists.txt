@@ -16,4 +16,8 @@ add_library(intensity-filter    SHARED  intensity.cpp )
 target_link_libraries(intensity-filter PRIVATE ${SLAMBENCH_C_WRAPPER} )
 target_include_directories(intensity-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR}) 
         
+add_library(rgb-filter    SHARED  rgb_kldiv.cpp )
+target_link_libraries(rgb-filter PRIVATE ${SLAMBENCH_C_WRAPPER} )
+target_include_directories(rgb-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR}) 
+        
 
