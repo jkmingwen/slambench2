@@ -6,8 +6,6 @@
 double threshold = 0;
 double default_threshold = 0.005;
 static slambench::io::CameraSensor *grey_sensor;
-bool is_first_frame_processed = false;
-
 std::vector<float> hist_old;
 float contrib; // assuming that all frames have the same resolution
 
