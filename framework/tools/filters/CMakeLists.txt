@@ -12,7 +12,7 @@ add_library(skip-filter    SHARED  skip_frame.cpp )
 target_link_libraries(skip-filter PRIVATE ${SLAMBENCH_C_WRAPPER} )
 target_include_directories(skip-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR}) 
         
-add_library(intensity-filter    SHARED  intensity.cpp )
+add_library(intensity-filter    SHARED  intensity_kldiv.cpp )
 target_link_libraries(intensity-filter PRIVATE ${SLAMBENCH_C_WRAPPER} )
 target_include_directories(intensity-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR}) 
         
