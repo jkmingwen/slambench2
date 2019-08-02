@@ -34,7 +34,7 @@ slambench::io::SLAMFrame * sb_process_filter (SLAMBenchFilterLibraryHelper *,
   std::random_device rd;
   std::mt19937_64 gen(rd());
   slambench::io::SLAMFrame *new_frame = nullptr;
-  int upper_range = 1 / probability;
+  int upper_range = 1.0 / probability;
   std::uniform_int_distribution<> dis(1, upper_range);
   
   if (dis(gen) == 1) {
