@@ -1,11 +1,13 @@
 EIGEN3_INCLUDE_DIR=${DEPS_DIR}/eigen3/include/eigen3
 ANDROID_EIGEN3_INCLUDE_DIR=${ANDROID_DEPS_DIR}/eigen3/include/eigen3
 
+EIGEN3_URL="http://bitbucket.org/eigen/eigen"
+
 ${REPOS_DIR}/eigen3 :
 	mkdir -p ${REPOS_DIR}/
 	rm -rf ${REPOS_DIR}/eigen3
-	cd ${REPOS_DIR}/ && hg clone --insecure "http://bitbucket.org/eigen/eigen" eigen3
-	cd ${REPOS_DIR}/eigen3 && hg update 3.2
+	cd ${REPOS_DIR}/ && hg clone --insecure ${EIGEN3_URL} eigen3
+	cd ${REPOS_DIR}/eigen3 && hg update 3.3
 
 
 ${DEPS_DIR}/eigen3  : ${REPOS_DIR}/eigen3 
