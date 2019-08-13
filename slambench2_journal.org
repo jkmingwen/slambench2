@@ -41,7 +41,7 @@
 *** DONE Pangolin bug
 - Refactored shell script flags in makefile
 - Workaround to avoid use of sysinfo functions for now
-*** TODO echo bug
+*** DONE echo bug
 - echo flags don't seem to work for some reason
 * Installing SLAMBench on Jetson Xavier
 ** Bugs/Fixes
