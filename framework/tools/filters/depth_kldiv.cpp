@@ -6,7 +6,7 @@
 #include <array>
 
 struct ScalarComparer {
-    bool operator()(sb_float3 const &v1, sb_float3 const &v2) {
+    bool operator()(const sb_float3 &v1, const sb_float3 &v2) {
         return (v1.x < v2.x) ||
                (v1.x == v2.x && v1.y < v2.y) ||
                (v1.x == v2.x && v1.y == v2.y && v1.z < v2.z);
@@ -105,7 +105,7 @@ sb_float3 normalize_sb_float3(sb_float3 input) {
   return normalized;
 }
 
-int count_non_zero(std::vector<int> const &mask) {
+int count_non_zero(const std::vector<int> &mask) {
   int count = 0;
   for (auto index : mask) {
     count += (index != 0);
@@ -114,7 +114,7 @@ int count_non_zero(std::vector<int> const &mask) {
   return count;
 }
 
-std::vector<int> invert_mask(std::vector<int> const &mask) {
+std::vector<int> invert_mask(const std::vector<int> &mask) {
   std::vector<int> inverted_mask;
   for (auto index : mask) {
     inverted_mask.push_back(!index);
@@ -124,7 +124,7 @@ std::vector<int> invert_mask(std::vector<int> const &mask) {
 }
 
 std::vector<sb_float3> remove_zeroes(std::vector<sb_float3> &norm_map,
-                                     std::vector<int> const &mask) {
+                                     const std::vector<int> &mask) {
   for (size_t i = 0; i < norm_map.size(); i++) {
     if (mask[i]) {
       norm_map[i] = make_sb_float3(0, 0, 0);
@@ -134,8 +134,8 @@ std::vector<sb_float3> remove_zeroes(std::vector<sb_float3> &norm_map,
   return norm_map;
 }
 
-std::vector<int> merge_masks(std::vector<int> const &old_mask,
-                             std::vector<int> const &new_mask,
+std::vector<int> merge_masks(const std::vector<int> &old_mask,
+                             const std::vector<int> &new_mask,
                              std::vector<int> &output_mask) {
   for (size_t i = 0; i < old_mask.size(); i++) {
     output_mask.push_back(old_mask[i] || new_mask[i]);
