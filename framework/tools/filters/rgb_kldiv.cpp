@@ -28,8 +28,8 @@ void calc_histogram(slambench::io::SLAMFrame *frame, std::vector<float> &hist,
   // loop through histogram and add occurances of values 0-255 (by channel) to respective bins
   // assuming that RGB values are interleaved: r1, g1, b1, r2, g2, b2, r3,...
   for (auto i = 0; i <= 255; i++) {
-    if (*(imageStart + (i * 3)) != 0) {
-      hist[*(imageStart + (i * 3)) - 1] += contrib;
+    if (imageStart[(i * 3)] != 0) {
+      hist[imageStart[(i * 3)] - 1] += contrib;
     }
   }
   
@@ -97,16 +97,16 @@ slambench::io::SLAMFrame * sb_process_filter (SLAMBenchFilterLibraryHelper * , s
   calc_histogram(frame, hist_new_g, contrib, 'g');
   calc_histogram(frame, hist_new_b, contrib, 'b');
   // compare old and new frames
-  float kl_divergence = (calc_kl_divergence(hist_new_r, *(hists_old['r'])) +
-                         calc_kl_divergence(hist_new_g, *(hists_old['g'])) +
-                         calc_kl_divergence(hist_new_b, *(hists_old['b']))) / 3;
+  float kl_divergence = (calc_kl_divergence(hist_new_r, *hists_old.at('r')) +
+                         calc_kl_divergence(hist_new_g, *hists_old.at('g')) +
+                         calc_kl_divergence(hist_new_b, *hists_old.at('b'))) / 3;
   std::cout << "kl_divergence = " << kl_divergence << std::endl;
   if (kl_divergence < threshold) {
     std::cout << "** Skip one frame." << std::endl; // skip frame
   } else {
-    *(hists_old['r']) = hist_new_r;
-    *(hists_old['g']) = hist_new_g;
-    *(hists_old['b']) = hist_new_b;
+    hists_old['r'] = &hist_new_r;
+    hists_old['g'] = &hist_new_g;
+    hists_old['b'] = &hist_new_b;
     new_frame = new IdentityFrame(frame); // assigns new_frame to a copy of curent_frame
   }
   
