@@ -1,7 +1,7 @@
 * Installing SLAMBench on OS X
 ** Workarounds for partial installation
 If you've been following the installation guide for SLAMBench on the GitHub page while running OS X, you might find yourself running into some problems getting SLAMBench up and running. Here are some workarounds to get ~benchmark_loader~ and most of the KinectFusion libraries compiled on OS X. The package manager I'm using is Homebrew and so I will be using that to install some of the dependencies required to compile SLAMBench.
-*** ~make deps~
+*** Installing dependencies
 - ~make deps~ isn't totally functional on OS X at the moment and so some dependencies have to be installed manually
 - Install these dependencies with Homebrew
   - ~brew install cmake make wget yaml-cpp hg boost glew~
@@ -13,21 +13,22 @@ Here are some workarounds in order to get SLAMBench2 (partially) working on OS X
     - On line 36: comment out ~#include <boost/optional.hpp>~
   - Run ~make slambench~
 - Run ~make kfusion~
-- You will need to initialise and remove a few variables
+- You will need to initialise and comment out a few variables
   - In path/to/slambench2/benchmarks/kfusion/src/original/commons.h
     - On line 90:
-      - Change: ~double r, g, b;~ to
-      - ~double r = 0.0; double g = 0.0; double b = 0.0;~
+      - Initialise ~double r, g, b;~ with ~0.0~
+        - Like so: ~double r = 0.0; double g = 0.0; double b = 0.0;~
   - In path/to/slambench2/benchmarks/kfusion/src/original/kfusion_library.cpp
     - Comment out Line 116
       - ~const bool   default_render_volume_fullsize = false;~ <-- comment out this line
-- In path/to/slambench2/benchmarks/kfusion/src/original/CMakeLists.txt
-  - Comment out lines 47-57
-  - After line 41, add:
-    - ~generate_slam_library(${appname}-cpp "")~ and
-    - ~target_include_directories(${appname}-cpp  PRIVATE  ./cpp_headers )~
-      - Now, you should be able to run ~make slambench APPS=kfusion~ at the cost of not having the OpenMP libraries
-*** ~make pangolin~
+  - In path/to/slambench2/benchmarks/kfusion/src/original/CMakeLists.txt
+    - Comment out lines 47-57
+    - After line 41, add:
+      - ~generate_slam_library(${appname}-cpp "")~ and
+      - ~target_include_directories(${appname}-cpp  PRIVATE  ./cpp_headers )~
+    - Now, you should be able to run ~make slambench APPS=kfusion~
+      - Note that the edits to path/to/slambench2/benchmarks/kfusion/src/original/CMakeLists.txt have made it so that you would not compile the OpenMP implementation of the KinectFusion library
+*** Pangolin loader
 Unfortunately, there are still some bugs to be worked out with regards to running the pangolin loader. Nonetheless, you should be able to compile the libraries by running ~make pangolin~.
 ** Bugs/Fixes
 *** DONE Git commits (from 15-07-2019)
