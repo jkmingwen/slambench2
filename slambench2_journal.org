@@ -1,26 +1,34 @@
-* Installing SLAMBench on Mac
-- Edit flags (-p, -rf) in Makefiles to be before strings
-  - framework/makefiles/download_benchmarks.py
-  - framework/makefiles/eigen3.make
-- Install prerequisites if you haven't already done so (I used Homebrew)
-  - CMake
-    - brew install cmake
-  - Make
-    - brew install make
-  - GCC C/C++
-    - brew install gcc
-  - Boost
-    - brew install boost
-  - GLUT (left out for now)
-  - wget
-    - brew install wget
-  - yaml
-    - brew install libyaml (do I still need this?)
-    - brew install yaml-cpp
-  - Install Mercurial to make eigen3
-    - brew install hg
-- make eigen3
-- Comment out "#define ENABLE_MEM_PROFILING" in framework/shared/src/sb_malloc.cpp
+* Installing SLAMBench on OS X
+** Workarounds for partial installation
+If you've been following the installation guide for SLAMBench on the GitHub page while running OS X, you might find yourself running into some problems getting SLAMBench up and running. Here are some workarounds to get ~benchmark_loader~ and most of the KinectFusion libraries compiled on OS X. The package manager I'm using is Homebrew and so I will be using that to install some of the dependencies required to compile SLAMBench.
+*** ~make deps~
+- ~make deps~ isn't totally functional on OS X at the moment and so some dependencies have to be installed manually
+- Install these dependencies with Homebrew
+  - ~brew install cmake make wget yaml-cpp hg boost glew~
+  - Run ~make toon~ to get the TooN library
+*** Compiling loaders and KinectFusion libraries
+Here are some workarounds in order to get SLAMBench2 (partially) working on OS X. I've been able to get ~benchmark_loader~ working and so you will be able to use it as a loader. With these workarounds, you should also be able to compile most of the KinectFusion libraries (using ~make slambench APPS=kfusion~) with the exception of the OpenMP implementation.
+- If your shell throws: ~error: boost/optional.h file not found~
+  - Go to: path/to/slambench2/framework/shared/src/SLAMBenchConfiguration.cpp
+    - On line 36: comment out ~#include <boost/optional.hpp>~
+  - Run ~make slambench~
+- Run ~make kfusion~
+- You will need to initialise and remove a few variables
+  - In path/to/slambench2/benchmarks/kfusion/src/original/commons.h
+    - On line 90:
+      - Change: ~double r, g, b;~ to
+      - ~double r = 0.0; double g = 0.0; double b = 0.0;~
+  - In path/to/slambench2/benchmarks/kfusion/src/original/kfusion_library.cpp
+    - Comment out Line 116
+      - ~const bool   default_render_volume_fullsize = false;~ <-- comment out this line
+- In path/to/slambench2/benchmarks/kfusion/src/original/CMakeLists.txt
+  - Comment out lines 47-57
+  - After line 41, add:
+    - ~generate_slam_library(${appname}-cpp "")~ and
+    - ~target_include_directories(${appname}-cpp  PRIVATE  ./cpp_headers )~
+      - Now, you should be able to run ~make slambench APPS=kfusion~ at the cost of not having the OpenMP libraries
+*** ~make pangolin~
+Unfortunately, there are still some bugs to be worked out with regards to running the pangolin loader. Nonetheless, you should be able to compile the libraries by running ~make pangolin~.
 ** Bugs/Fixes
 *** DONE Git commits (from 15-07-2019)
 - Makefile change can be discarded
@@ -43,6 +51,8 @@
 - Workaround to avoid use of sysinfo functions for now
 *** DONE echo bug
 - echo flags don't seem to work for some reason
+*** TODO timings.h bug
+- Need to submit pull request of fix
 * Installing SLAMBench on Jetson Xavier
 ** Bugs/Fixes
 - Seems as though boost is necessary to compile SLAMBench with 'make slambench' so might want to consider removing the "(optional)" from Boost in documentation
