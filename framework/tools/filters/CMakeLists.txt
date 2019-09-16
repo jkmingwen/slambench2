@@ -27,3 +27,7 @@ target_include_directories(naive-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR})
 add_library(depth-filter    SHARED  depth_kldiv.cpp )
 target_link_libraries(depth-filter PRIVATE ${SLAMBENCH_C_WRAPPER} )
 target_include_directories(depth-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR}) 
+
+add_library(combined-filter    SHARED  combined_di_kldiv.cpp )
+target_link_libraries(combined-filter PRIVATE ${SLAMBENCH_C_WRAPPER} )
+target_include_directories(combined-filter PRIVATE ${SLAMBENCH_INCLUDE_DIR}) 

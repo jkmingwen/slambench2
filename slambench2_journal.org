@@ -1,11 +1,15 @@
 * Installing SLAMBench on OS X
 ** Workarounds for partial installation
 If you've been following the installation guide for SLAMBench on the GitHub page while running OS X, you might find yourself running into some problems getting SLAMBench up and running. Here are some workarounds to get ~benchmark_loader~ and most of the KinectFusion libraries compiled on OS X. The package manager I'm using is Homebrew and so I will be using that to install some of the dependencies required to compile SLAMBench.
+*** Getting SLAMBench
+- Clone the repository using ~git clone path/to/desired/dir~
 *** Installing dependencies
 - ~make deps~ isn't totally functional on OS X at the moment and so some dependencies have to be installed manually
 - Install these dependencies with Homebrew
   - ~brew install cmake make wget yaml-cpp hg boost glew~
-  - Run ~make toon~ to get the TooN library
+  - For now, you'll need to be on the ~bruno-dev~ branch for this to work so run ~git checkout bruno-dev~
+  - Enter the directory you cloned SLAMBench into (e.g. ~cd slambench~)
+  - Run ~make toon~ and ~make eigen3~ to get the respective libraries
 *** Compiling loaders and KinectFusion libraries
 Here are some workarounds in order to get SLAMBench2 (partially) working on OS X. I've been able to get ~benchmark_loader~ working and so you will be able to use it as a loader. With these workarounds, you should also be able to compile most of the KinectFusion libraries (using ~make slambench APPS=kfusion~) with the exception of the OpenMP implementation.
 - If your shell throws: ~error: boost/optional.h file not found~
