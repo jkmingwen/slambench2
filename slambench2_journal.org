@@ -26,10 +26,11 @@ Here are some workarounds in order to get SLAMBench2 (partially) working on OS X
     - Comment out Line 116
       - ~const bool   default_render_volume_fullsize = false;~ <-- comment out this line
   - In path/to/slambench2/benchmarks/kfusion/src/original/CMakeLists.txt
-    - Comment out lines 47-57
     - After line 41, add:
       - ~generate_slam_library(${appname}-cpp "")~ and
       - ~target_include_directories(${appname}-cpp  PRIVATE  ./cpp_headers )~
+    - Comment out lines 47-57
+  - Implement changes from commit ~3e5c2c4~ on jkmingwen's fork
     - Now, you should be able to run ~make slambench APPS=kfusion~
       - Note that the edits to path/to/slambench2/benchmarks/kfusion/src/original/CMakeLists.txt have made it so that you would not compile the OpenMP implementation of the KinectFusion library
 *** Pangolin loader
